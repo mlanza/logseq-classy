@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "author": "Mario T. Lanza",
   "main": "index.html",
-  "description": "Facilitates custom styles by dynamically adding classes to blocks matching query criteria.",
+  "description": "Facilitates otherwise impossible custom stylesheets by applying classes to blocks identified in custom queries.",
   "license": "MIT",
   "browserslist": [
     "chrome 80"
