@@ -1,4 +1,4 @@
-# Logseq Classy
+# Logseq Classy Plugin
 
 Facilitates otherwise impossible custom stylesheets by applying classes to blocks identified in custom queries.  A great complement to [Style Carousel](https://github.com/mlanza/logseq-style-carousel).
 
@@ -18,34 +18,68 @@ The following settings example demonstrates how to mark the DOM with the `overdu
   "disabled": false,
   "queries": [
     {
-      "query": "[:find (pull ?block [*]) :where (?block :block/scheduled ?d) [(< ?d {0})]]",
+      "query": "[:find (pull ?block [*]) :where [?block :block/marker ?marker] [(contains? #{\"TODO\",\"DOING\"} ?marker)] (or [?block :block/scheduled ?d] [?block :block/deadline ?d]) [(< ?d {0})]]",
       "inputs": [
         "today 0"
       ],
-      "classname": "overdue-task",
+      "classname": "overdue",
       "matches": [],
       "disabled": false,
-      "refreshRate": 30
-    },{
-      "query": "[:find (pull ?block [*]) :where (?block :block/scheduled ?d) [(> ?d {0})]]",
+      "refreshRate": 10
+    },
+    {
+      "query": "[:find (pull ?block [*]) :where [?block :block/marker ?marker] [(contains? #{\"TODO\",\"DOING\"} ?marker)] (or [?block :block/scheduled ?d] [?block :block/deadline ?d]) [(> ?d {0})]]",
       "inputs": [
         "today 0"
       ],
-      "classname": "future-task",
+      "classname": "future",
       "matches": [],
       "disabled": false,
-      "refreshRate": 30
+      "refreshRate": 10
+    },
+    {
+      "query": "[:find (pull ?block [*]) :where [?block :block/marker ?marker] [(contains? #{\"TODO\",\"DOING\"} ?marker)] (or [?block :block/scheduled ?d] [?block :block/deadline ?d]) [(> ?d {0})]]",
+      "inputs": [
+        "today 90"
+      ],
+      "classname": "distant-future",
+      "matches": [],
+      "disabled": false,
+      "refreshRate": 10
     }
   ]
 }
 ```
+Then in your `custom.css`:
+
+```css
+.distant-future {
+  opacity: .5;
+  transition: all .6s ease-in-out;
+  cursor: pointer;
+}
+.distant-future:hover {
+  opacity: 1;
+  transition: all .6s ease-in-out;
+}
+.distant-future a.TODO::after,
+.distant-future a.DOING::after,
+.distant-future a.WAITING::after {
+  content: " 🔮" !important;
+}
+.overdue a.TODO::after,
+.overdue a.DOING::after,
+.overdue a.WAITING::after {
+  content: " ⌛" !important;
+}
+```
+
+What is illustrated is an example.  Add whatever custom styles you like.
 
 ## Queries
-
 Queries are global and do not only target the current page blocks.  The dynamically-added classes do, however.  When a block is edited any resulting class changes to the DOM will not take effect until the next query refresh.
 
 ### Calculations
-
 Logseq calculates relative values but [it does not expose them in a manner plugins can utilize](https://discuss.logseq.com/t/support-relative-values-e-g-resolve-input-in-plugin-queries/6010).  This plugin, therefore, currently only implements one calculation: `today`.  It accepts a single argument, an offset from today.  Thus, 0 is today, -1 yesterday, 1 tomorrow, etc.  More calculations can be added as needs arise.
 
 Calculations (like Logseq's `resolve-input`) target both query `inputs` and regex `matches`.  However, there are currently no calculations suitable for generating regular expressions (that is, `matches` use).  Those too can be added as needs arise.
