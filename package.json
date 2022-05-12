@@ -1,6 +1,6 @@
 {
   "name": "logseq-classy",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "author": "Mario T. Lanza",
   "main": "index.html",
   "description": "Facilitates otherwise impossible custom stylesheets by applying classes to blocks identified in custom queries.",

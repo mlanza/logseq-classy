@@ -1,23 +1,5 @@
 const classes = {};
 
-async function getPage(){
-  let tries = 30;
-  return new Promise(function(resolve, reject){
-    const iv = setInterval(async function(){
-      const page = await logseq.Editor.getCurrentPage();
-      if (page || tries <= 0) {
-        clearInterval(iv);
-        resolve(page);
-      }
-      tries--;
-      if (tries < 0) {
-        clearInterval(iv);
-        reject(page);
-      }
-    }, 500);
-  });
-}
-
 function today(os){
   const offset = os ? parseInt(os) : 0;
   const dt = new Date();
@@ -101,19 +83,21 @@ function createModel(){
   return {refresh};
 }
 
-async function main(){
-  logseq.App.onRouteChanged(async function(e){
-    await getPage();
-    refresh();
-  });
-
-  await getPage();
-  for(let q of logseq.settings.queries) {
-    if (!q.disabled) {
-      updateIds(q);
-      (q.refreshRate || 0) > 0 && setInterval(updateIds.bind(q, q), q.refreshRate * 1000);
+function update(queries){
+  setTimeout(function(){
+    for(let q of queries) {
+      if (!q.disabled) {
+        updateIds(q);
+        (q.refreshRate || 0) > 0 && setInterval(updateIds.bind(q, q), q.refreshRate * 1000);
+      }
     }
-  }
+  }, 1000);
+}
+
+async function main(){
+  update(logseq.settings.queries);
+  setInterval(refresh, (logseq.settings.refreshRate || 5) * 1000);
+  logseq.App.onRouteChanged(refresh);
 }
 
 logseq.ready(createModel(), main).catch(console.error.bind(console));
