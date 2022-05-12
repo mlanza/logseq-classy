@@ -1,12 +1,12 @@
 # Logseq Classy
 
-This plugin queries the block database for matching blocks and applies classes to the DOM allowing improved custom stylesheets.
+Facilitates otherwise impossible custom stylesheets by applying classes to blocks identified in custom queries.  A great complement to [Style Carousel](https://github.com/mlanza/logseq-style-carousel).
 
 ## Settings
 
-The queries settings can be use to complement toggle buttons or independently to facilitate custom stylesheet effects impossible without Style Carousel.  Matching blocks are dynamically marked with class names in the DOM.
+The queries settings can be use to complement toggle buttons or independently to facilitate otherwise impossible stylesheet effects.  Matching blocks are dynamically marked with class names in the DOM.
 
-* `query` — Datalog query which returns blocks.  Inputs are noted with positional placeholders (e.g.  `{0}`, `{1}`).
+* `query` — Datalog query which returns blocks.  Query inputs, if used, are positionally noted with placeholders (e.g.  `{0}`, `{1}`).
 * `inputs` — Optional query input(s).
 * `matches` — Optional regular expression(s) expressed as strings for further filtering blocks by their content text.
 * `classname` — Class name to apply to matching block elements found in the DOM.
@@ -42,7 +42,7 @@ The following settings example demonstrates how to mark the DOM with the `overdu
 
 ## Queries
 
-Queries are global and do not only target the current page blocks.  The dynamically-added classes do, however.  When the user edits a block any resulting class changes to the DOM will not take effect until the next query refresh.
+Queries are global and do not only target the current page blocks.  The dynamically-added classes do, however.  When a block is edited any resulting class changes to the DOM will not take effect until the next query refresh.
 
 ### Calculations
 
@@ -50,13 +50,5 @@ Logseq calculates relative values but [it does not expose them in a manner plugi
 
 Calculations (like Logseq's `resolve-input`) target both query `inputs` and regex `matches`.  However, there are currently no calculations suitable for generating regular expressions (that is, `matches` use).  Those too can be added as needs arise.
 
-## Manual installation
-* Download this repo
-* In Logseq:
-  * Ensure Developer Mode is on
-  * Open Plugins
-  * Select `Load unpacked plugin`
-
 ## License
 [MIT](./LICENSE.md)
-
