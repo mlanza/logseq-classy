@@ -1,0 +1,16 @@
+{
+  "name": "logseq-classy",
+  "version": "1.0.0",
+  "author": "Mario T. Lanza",
+  "main": "index.html",
+  "description": "Facilitates custom styles by dynamically adding classes to blocks matching query criteria.",
+  "license": "MIT",
+  "browserslist": [
+    "chrome 80"
+  ],
+  "logseq": {
+    "id": "logseq-classy",
+    "title": "Classy",
+    "icon": "classy.svg"
+  }
+}
