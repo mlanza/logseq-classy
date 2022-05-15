@@ -12,7 +12,7 @@ The queries settings can be use to complement toggle buttons or independently to
 * `classname` — Class name to apply to matching block elements found in the DOM.
 * `refreshRate` — Seconds until query runs and refreshes on-screen classes.  The Logseq plugin api currently lacks a document or block update callback.  Without this, polling is the only viable alternative.
 
-The following settings example demonstrates how to mark the DOM with the `overdue-task` and `future-task` classes:
+The following settings example demonstrates how to mark the DOM with the `overdue`, `future` and `distant-future` classes:
 
 ```json
 {
