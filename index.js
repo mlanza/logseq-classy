@@ -61,7 +61,7 @@ function classify(classname, uuids){
     return "div[blockid=\"@uuid\"]".replace(/\@uuid/g, uuid);
   }).join(", ");
   const prior = top.document.querySelectorAll(`.${classname}`);
-  const els = Array.from(top.document.querySelectorAll(hits));
+  const els = hits ? Array.from(top.document.querySelectorAll(hits)) : [];
   for(let el of prior){
     if (!els.includes(el)) {
       el.classList.remove(classname);
