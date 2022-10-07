@@ -44,7 +44,7 @@ async function findIds(qu){
     return new RegExp(pattern);
   });
   return results.filter(match(patterns)).filter(present).map(function(block){
-    return block.uuid.$uuid$;
+    return block.uuid.$uuid$ || block.uuid;
   });
 }
 
